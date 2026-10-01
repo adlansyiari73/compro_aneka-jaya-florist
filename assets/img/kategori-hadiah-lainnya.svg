@@ -1,0 +1,34 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 40 600 480" width="600" height="480" role="img" aria-label="Kategori Hadiah Lainnya">
+<title>Ilustrasi bunga</title>
+<defs><linearGradient id="gc7" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#FFF5EE"/><stop offset="1" stop-color="#F8CDB8"/></linearGradient></defs>
+<rect x="0" y="40" width="600" height="480" fill="url(#gc7)"/>
+<circle cx="500" cy="90" r="120" fill="#fff" opacity=".35"/><circle cx="70" cy="520" r="90" fill="#fff" opacity=".25"/>
+<circle cx="215" cy="150" r="42" fill="#B98558"/><circle cx="385" cy="150" r="42" fill="#B98558"/>
+<circle cx="215" cy="150" r="22" fill="#E8C3A0"/><circle cx="385" cy="150" r="22" fill="#E8C3A0"/>
+<ellipse cx="300" cy="400" rx="115" ry="95" fill="#C99A6B"/><ellipse cx="300" cy="415" rx="68" ry="62" fill="#E8C3A0"/>
+<circle cx="300" cy="230" r="98" fill="#C99A6B"/><ellipse cx="300" cy="258" rx="45" ry="34" fill="#E8C3A0"/>
+<circle cx="262" cy="212" r="9" fill="#3A2A22"/><circle cx="338" cy="212" r="9" fill="#3A2A22"/><ellipse cx="300" cy="246" rx="13" ry="9" fill="#3A2A22"/>
+<path d="M285 268 Q300 282 315 268" fill="none" stroke="#3A2A22" stroke-width="4" stroke-linecap="round"/>
+<ellipse cx="185" cy="385" rx="30" ry="55" fill="#C99A6B" transform="rotate(25 185 385)"/><ellipse cx="415" cy="385" rx="30" ry="55" fill="#C99A6B" transform="rotate(-25 415 385)"/>
+<circle cx="238" cy="480" r="38" fill="#C99A6B"/><circle cx="362" cy="480" r="38" fill="#C99A6B"/>
+<g>
+<circle cx="300" cy="345" r="38" fill="#F7A98F"/>
+<circle cx="300" cy="345" r="27.4" fill="#FCD3C4" opacity=".5"/>
+<path d="M271.5 341.2 Q281 314.6 311.4 316.5 Q334.2 329.8 326.6 356.4 Q311.4 377.3 284.8 367.8" fill="none" stroke="#D87457" stroke-width="3.4" stroke-linecap="round"/>
+<path d="M286.7 345 Q300 326 313.3 345 Q300 358.3 292.4 348.8" fill="none" stroke="#D87457" stroke-width="3" stroke-linecap="round"/>
+</g><g>
+<circle cx="262" cy="372" r="28" fill="#F7A98F"/>
+<circle cx="262" cy="372" r="20.2" fill="#FCD3C4" opacity=".5"/>
+<path d="M241 369.2 Q248 349.6 270.4 351 Q287.2 360.8 281.6 380.4 Q270.4 395.8 250.8 388.8" fill="none" stroke="#D87457" stroke-width="2.5" stroke-linecap="round"/>
+<path d="M252.2 372 Q262 358 271.8 372 Q262 381.8 256.4 374.8" fill="none" stroke="#D87457" stroke-width="2.2" stroke-linecap="round"/>
+</g><g>
+<circle cx="340" cy="374" r="28" fill="#F7A98F"/>
+<circle cx="340" cy="374" r="20.2" fill="#FCD3C4" opacity=".5"/>
+<path d="M319 371.2 Q326 351.6 348.4 353 Q365.2 362.8 359.6 382.4 Q348.4 397.8 328.8 390.8" fill="none" stroke="#D87457" stroke-width="2.5" stroke-linecap="round"/>
+<path d="M330.2 374 Q340 360 349.8 374 Q340 383.8 334.4 376.8" fill="none" stroke="#D87457" stroke-width="2.2" stroke-linecap="round"/>
+</g><ellipse cx="235" cy="372" rx="10.6" ry="38" fill="#5E8F6B" transform="rotate(-70 235 372)"/><ellipse cx="365" cy="372" rx="10.6" ry="38" fill="#5E8F6B" transform="rotate(70 365 372)"/><g fill="#D87457">
+<path d="M300 320 Q272.5 298 267 322.75 Q278 339.25 300 320Z"/>
+<path d="M300 320 Q327.5 298 333 322.75 Q322 339.25 300 320Z"/>
+<circle cx="300" cy="320" r="5.5"/></g>
+
+</svg>
