@@ -1,0 +1,26 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 600 600" width="600" height="600" role="img" aria-label="Hampers Bunga &amp; Cokelat">
+<title>Hampers Bunga &amp; Cokelat</title>
+<defs><linearGradient id="g16" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#FFF5EE"/><stop offset="1" stop-color="#F8CDB8"/></linearGradient></defs>
+<rect x="0" y="0" width="600" height="600" fill="url(#g16)"/>
+<circle cx="500" cy="90" r="120" fill="#fff" opacity=".35"/><circle cx="70" cy="520" r="90" fill="#fff" opacity=".25"/>
+<ellipse cx="215" cy="240" rx="19.6" ry="70" fill="#5E8F6B" transform="rotate(-50 215 240)"/><ellipse cx="385" cy="240" rx="19.6" ry="70" fill="#5E8F6B" transform="rotate(50 385 240)"/>
+<g>
+<circle cx="250" cy="220" r="48" fill="#EE8FA8"/>
+<circle cx="250" cy="220" r="34.6" fill="#F9D0DB" opacity=".5"/>
+<path d="M214 215.2 Q226 181.6 264.4 184 Q293.2 200.8 283.6 234.4 Q264.4 260.8 230.8 248.8" fill="none" stroke="#C95C7C" stroke-width="4.3" stroke-linecap="round"/>
+<path d="M233.2 220 Q250 196 266.8 220 Q250 236.8 240.4 224.8" fill="none" stroke="#C95C7C" stroke-width="3.8" stroke-linecap="round"/>
+</g><g>
+<circle cx="345" cy="205" r="54" fill="#EE8FA8"/>
+<circle cx="345" cy="205" r="38.9" fill="#F9D0DB" opacity=".5"/>
+<path d="M304.5 199.6 Q318 161.8 361.2 164.5 Q393.6 183.4 382.8 221.2 Q361.2 250.9 323.4 237.4" fill="none" stroke="#C95C7C" stroke-width="4.9" stroke-linecap="round"/>
+<path d="M326.1 205 Q345 178 363.9 205 Q345 223.9 334.2 210.4" fill="none" stroke="#C95C7C" stroke-width="4.3" stroke-linecap="round"/>
+</g><g><ellipse cx="190" cy="255.7" rx="4.6" ry="9.7" fill="#fff" transform="rotate(0 190 270)"/><ellipse cx="190" cy="255.7" rx="4.6" ry="9.7" fill="#fff" transform="rotate(45 190 270)"/><ellipse cx="190" cy="255.7" rx="4.6" ry="9.7" fill="#fff" transform="rotate(90 190 270)"/><ellipse cx="190" cy="255.7" rx="4.6" ry="9.7" fill="#fff" transform="rotate(135 190 270)"/><ellipse cx="190" cy="255.7" rx="4.6" ry="9.7" fill="#fff" transform="rotate(180 190 270)"/><ellipse cx="190" cy="255.7" rx="4.6" ry="9.7" fill="#fff" transform="rotate(225 190 270)"/><ellipse cx="190" cy="255.7" rx="4.6" ry="9.7" fill="#fff" transform="rotate(270 190 270)"/><ellipse cx="190" cy="255.7" rx="4.6" ry="9.7" fill="#fff" transform="rotate(315 190 270)"/><circle cx="190" cy="270" r="5.1" fill="#F5C842"/></g><g><ellipse cx="410" cy="248.4" rx="4.4" ry="9.2" fill="#fff" transform="rotate(0 410 262)"/><ellipse cx="410" cy="248.4" rx="4.4" ry="9.2" fill="#fff" transform="rotate(45 410 262)"/><ellipse cx="410" cy="248.4" rx="4.4" ry="9.2" fill="#fff" transform="rotate(90 410 262)"/><ellipse cx="410" cy="248.4" rx="4.4" ry="9.2" fill="#fff" transform="rotate(135 410 262)"/><ellipse cx="410" cy="248.4" rx="4.4" ry="9.2" fill="#fff" transform="rotate(180 410 262)"/><ellipse cx="410" cy="248.4" rx="4.4" ry="9.2" fill="#fff" transform="rotate(225 410 262)"/><ellipse cx="410" cy="248.4" rx="4.4" ry="9.2" fill="#fff" transform="rotate(270 410 262)"/><ellipse cx="410" cy="248.4" rx="4.4" ry="9.2" fill="#fff" transform="rotate(315 410 262)"/><circle cx="410" cy="262" r="4.8" fill="#F5C842"/></g><circle cx="300" cy="160" r="12" fill="#F9D0DB"/>
+<rect x="130" y="290" width="340" height="180" rx="14" fill="#C98A5E"/>
+<rect x="130" y="290" width="340" height="44" rx="14" fill="#B5764B"/>
+<rect x="278" y="290" width="44" height="180" fill="#C95C7C"/><rect x="130" y="365" width="340" height="30" fill="#C95C7C" opacity=".9"/>
+<g fill="#C95C7C">
+<path d="M300 290 Q245 246 234 295.5 Q256 328.5 300 290Z"/>
+<path d="M300 290 Q355 246 366 295.5 Q344 328.5 300 290Z"/>
+<circle cx="300" cy="290" r="11"/></g>
+<rect x="40" y="514" width="520" height="54" rx="27" fill="#fff" opacity=".88"/><text x="300" y="550" text-anchor="middle" font-family="Poppins,Arial,sans-serif" font-size="24" font-weight="600" fill="#2D1F24">Hampers Bunga &amp; Cokelat</text>
+</svg>
