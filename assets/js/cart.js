@@ -1,11 +1,26 @@
 /* ==========================================================================
    Keranjang belanja: state + localStorage + drawer + checkout WhatsApp
    Hanya menyimpan { id, qty }; nama & harga selalu dibaca dari products.js.
+   Data pengiriman (opsional) disimpan terpisah sebagai draf teks.
    ========================================================================== */
 const Cart = (function () {
   const STORAGE_KEY = 'ajf_cart_v1';
+  const KIRIM_KEY = 'ajf_kirim_v1';
   const MAX_QTY = 99;
+  // Urutan & label blok "Data pengiriman" di pesan WhatsApp.
+  // `kunci` = atribut name di form #cart-kirim (ada di keempat file HTML).
+  const FIELD_KIRIM = [
+    { kunci: 'tanggal',  label: 'Tanggal kirim' },
+    { kunci: 'jam',      label: 'Jam/sesi kirim' },
+    { kunci: 'penerima', label: 'Nama penerima' },
+    { kunci: 'alamat',   label: 'Alamat pengiriman' },
+    { kunci: 'ucapan',   label: 'Teks kartu/papan ucapan' },
+    { kunci: 'pengirim', label: 'Nama pengirim' },
+  ];
+  const HARI = ['Minggu', 'Senin', 'Selasa', 'Rabu', 'Kamis', 'Jumat', 'Sabtu'];
+  const BULAN = ['Januari', 'Februari', 'Maret', 'April', 'Mei', 'Juni', 'Juli', 'Agustus', 'September', 'Oktober', 'November', 'Desember'];
   let items = muat();
+  let kirim = muatKirim();
   let fokusSebelumnya = null;
 
   /* ----- State ----- */
@@ -25,8 +40,30 @@ const Cart = (function () {
     try { localStorage.setItem(STORAGE_KEY, JSON.stringify(items)); } catch (e) { /* mode privat / penuh: abaikan */ }
   }
 
+  /** Draf data pengiriman: hanya teks untuk kunci yang dikenal */
+  function muatKirim() {
+    try {
+      const mentah = JSON.parse(localStorage.getItem(KIRIM_KEY));
+      const hasil = {};
+      FIELD_KIRIM.forEach((f) => {
+        if (mentah && typeof mentah[f.kunci] === 'string') hasil[f.kunci] = mentah[f.kunci];
+      });
+      return hasil;
+    } catch (e) {
+      return {};
+    }
+  }
+
+  function simpanKirim() {
+    try {
+      if (Object.keys(kirim).length) localStorage.setItem(KIRIM_KEY, JSON.stringify(kirim));
+      else localStorage.removeItem(KIRIM_KEY);
+    } catch (e) { /* mode privat / penuh: abaikan */ }
+  }
+
   function jumlahTotal() { return items.reduce((n, i) => n + i.qty, 0); }
-  function hargaTotal() { return items.reduce((n, i) => n + cariProduk(i.id).harga * i.qty, 0); }
+  function hitungTotal(daftar) { return daftar.reduce((n, i) => n + cariProduk(i.id).harga * i.qty, 0); }
+  function hargaTotal() { return hitungTotal(items); }
 
   function tambah(id) {
     const ada = items.find((i) => i.id === id);
@@ -49,25 +86,58 @@ const Cart = (function () {
 
   function kosongkan() {
     items = [];
+    kirim = {};
+    simpanKirim();
+    isiForm();
     perbarui();
   }
 
   /* ----- Pesan WhatsApp ----- */
-  function buatPesan() {
-    const baris = items.map((i, n) => {
+  // Tanpa DOM & localStorage agar bisa diuji: node tests/pesan.test.js
+  function susunPesan(daftar, dataKirim) {
+    const baris = daftar.map((i, n) => {
       const p = cariProduk(i.id);
       return (n + 1) + '. ' + p.nama + ' x' + i.qty + ' = ' + formatRupiah(p.harga * i.qty);
     });
-    return [
+    const bagian = [
       'Halo ' + SITE_CONFIG.namaToko + ', saya ingin memesan:',
       '',
       baris.join('\n'),
       '',
-      'Total: ' + formatRupiah(hargaTotal()),
-      '',
-      'Mohon info ketersediaan, ongkos kirim, dan cara pembayarannya. Terima kasih!',
-    ].join('\n');
+      'Total: ' + formatRupiah(hitungTotal(daftar)),
+    ];
+    const pengiriman = barisPengiriman(dataKirim);
+    if (pengiriman.length) bagian.push('', 'Data pengiriman:', pengiriman.join('\n'));
+    bagian.push('', 'Mohon info ketersediaan, ongkos kirim, dan cara pembayarannya. Terima kasih!');
+    return bagian.join('\n');
   }
+
+  /** Hanya isian yang terisi, urut sesuai FIELD_KIRIM */
+  function barisPengiriman(dataKirim) {
+    const hasil = [];
+    FIELD_KIRIM.forEach((f) => {
+      const nilai = rapikan(dataKirim && dataKirim[f.kunci]);
+      if (nilai) hasil.push('- ' + f.label + ': ' + (f.kunci === 'tanggal' ? formatTanggal(nilai) : nilai));
+    });
+    return hasil;
+  }
+
+  /** Buang spasi di tepi tiap baris dan baris kosong; selain teks dianggap kosong */
+  function rapikan(nilai) {
+    if (typeof nilai !== 'string') return '';
+    return nilai.split(/\r\n?|\n/).map((s) => s.trim()).filter(Boolean).join('\n');
+  }
+
+  /** "2026-11-07" -> "Sabtu, 7 November 2026"; format lain dikirim apa adanya */
+  function formatTanggal(teks) {
+    const m = /^(\d{4})-(\d{2})-(\d{2})$/.exec(teks);
+    if (!m) return teks;
+    const d = new Date(+m[1], m[2] - 1, +m[3]);
+    if (d.getFullYear() !== +m[1] || d.getMonth() !== m[2] - 1 || d.getDate() !== +m[3]) return teks;
+    return HARI[d.getDay()] + ', ' + d.getDate() + ' ' + BULAN[d.getMonth()] + ' ' + d.getFullYear();
+  }
+
+  function buatPesan() { return susunPesan(items, kirim); }
 
   /* ----- UI ----- */
   const el = {};
@@ -81,6 +151,7 @@ const Cart = (function () {
     el.footer = document.getElementById('cart-footer');
     el.total = document.getElementById('cart-total');
     el.checkout = document.getElementById('cart-checkout');
+    el.form = document.getElementById('cart-kirim');
     el.toast = document.getElementById('toast');
     el.badges = document.querySelectorAll('[data-cart-count]');
     return true;
@@ -99,16 +170,49 @@ const Cart = (function () {
 
     el.empty.hidden = n > 0;
     el.footer.hidden = n === 0;
+    if (el.form) el.form.hidden = n === 0;
     el.list.innerHTML = items.map(barisHTML).join('');
     el.total.textContent = formatRupiah(hargaTotal());
+    perbaruiCheckout();
+  }
 
-    if (n > 0) {
+  function perbaruiCheckout() {
+    if (jumlahTotal() > 0) {
       el.checkout.href = waLink(buatPesan());
       el.checkout.removeAttribute('aria-disabled');
     } else {
       el.checkout.removeAttribute('href');
       el.checkout.setAttribute('aria-disabled', 'true');
     }
+  }
+
+  /* ----- Form data pengiriman ----- */
+  function hariIni() {
+    const d = new Date();
+    return d.getFullYear() + '-' + String(d.getMonth() + 1).padStart(2, '0') + '-' + String(d.getDate()).padStart(2, '0');
+  }
+
+  /** Tulis draf ke form (saat awal, sinkron antar tab, dan saat dikosongkan) */
+  function isiForm() {
+    if (!el.form) return;
+    FIELD_KIRIM.forEach((f) => {
+      const input = el.form.elements[f.kunci];
+      if (!input) return;
+      const nilai = kirim[f.kunci] || '';
+      input.value = input.maxLength > 0 ? nilai.slice(0, input.maxLength) : nilai;
+    });
+  }
+
+  /** Baca isian form -> draf, lalu perbarui link checkout */
+  function bacaForm() {
+    if (!el.form) return;
+    kirim = {};
+    FIELD_KIRIM.forEach((f) => {
+      const input = el.form.elements[f.kunci];
+      if (input && input.value) kirim[f.kunci] = input.value;
+    });
+    simpanKirim();
+    perbaruiCheckout();
   }
 
   function barisHTML(i) {
@@ -143,7 +247,9 @@ const Cart = (function () {
   }
 
   function elemenFokus() {
-    return el.drawer.querySelectorAll('button:not([disabled]), a[href], [tabindex]:not([tabindex="-1"])');
+    const semua = el.drawer.querySelectorAll('button:not([disabled]), a[href], input:not([disabled]), textarea:not([disabled]), [tabindex]:not([tabindex="-1"])');
+    // Lewati yang tersembunyi (mis. form & tombol bawah saat keranjang kosong)
+    return Array.prototype.filter.call(semua, (n) => n.getClientRects().length > 0);
   }
 
   function buka() {
@@ -194,8 +300,15 @@ const Cart = (function () {
     });
 
     el.checkout.addEventListener('click', (e) => {
-      if (el.checkout.getAttribute('aria-disabled') === 'true') e.preventDefault();
+      if (el.checkout.getAttribute('aria-disabled') === 'true') { e.preventDefault(); return; }
+      bacaForm(); // jaga-jaga: isian terakhir pasti ikut sebelum link dibuka
     });
+
+    if (el.form) {
+      el.form.addEventListener('input', bacaForm);
+      el.form.addEventListener('change', bacaForm);
+      el.form.addEventListener('submit', (e) => e.preventDefault()); // Enter tidak memuat ulang halaman
+    }
 
     document.addEventListener('keydown', (e) => {
       if (!el.drawer.classList.contains('is-open')) return;
@@ -212,17 +325,31 @@ const Cart = (function () {
     // Sinkron antar tab browser
     window.addEventListener('storage', (e) => {
       if (e.key === STORAGE_KEY) { items = muat(); perbarui(); }
+      if (e.key === KIRIM_KEY) { kirim = muatKirim(); isiForm(); perbaruiCheckout(); }
     });
   }
 
   function init() {
     if (!ambilElemen()) return;
     el.drawer.setAttribute('inert', '');
+    const tanggal = el.form && el.form.elements.tanggal;
+    if (tanggal) {
+      tanggal.min = hariIni();
+      // Draf lama dengan tanggal yang sudah lewat tidak dipakai lagi
+      if (/^\d{4}-\d{2}-\d{2}$/.test(kirim.tanggal || '') && kirim.tanggal < tanggal.min) {
+        delete kirim.tanggal;
+        simpanKirim();
+      }
+    }
+    isiForm();
     pasangEvent();
     perbarui();
   }
 
-  return { init: init, tambah: tambah, hapus: hapus, kosongkan: kosongkan, jumlah: jumlahTotal, total: hargaTotal, buatPesan: buatPesan };
+  return {
+    init: init, tambah: tambah, hapus: hapus, kosongkan: kosongkan, jumlah: jumlahTotal, total: hargaTotal,
+    buatPesan: buatPesan, susunPesan: susunPesan, FIELD_KIRIM: FIELD_KIRIM,
+  };
 })();
 
 document.addEventListener('DOMContentLoaded', Cart.init);
