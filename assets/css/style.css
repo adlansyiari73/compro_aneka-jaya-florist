@@ -92,7 +92,7 @@ ul, ol { margin: 0; padding: 0; list-style: none; }
 img, svg { max-width: 100%; }
 img { display: block; height: auto; }
 a { color: inherit; text-decoration: none; }
-button, input, select { font: inherit; color: inherit; }
+button, input, select, textarea { font: inherit; color: inherit; }
 button { cursor: pointer; }
 figure, blockquote { margin: 0; }
 
@@ -151,6 +151,7 @@ section[id], footer[id] { scroll-margin-top: calc(var(--header-h) + 12px); }
 }
 
 .noscript { padding: 16px; background: var(--pink-100); border-radius: var(--radius); }
+.noscript a { color: var(--rose-dark); text-decoration: underline; }
 
 /* ==========================================================================
    4. TOMBOL & KOMPONEN KECIL
@@ -771,6 +772,33 @@ section[id], footer[id] { scroll-margin-top: calc(var(--header-h) + 12px); }
 .cart-total { display: flex; justify-content: space-between; align-items: baseline; margin-bottom: 14px; font-size: .9375rem; }
 .cart-total strong { font-size: 1.25rem; color: var(--rose-dark); }
 
+/* Form data pengiriman (di bawah daftar item, ikut tergulir) */
+.cart-form { padding: 18px 0 8px; }
+.cart-form fieldset { min-width: 0; margin: 0; padding: 0; border: 0; }
+.cart-form legend { padding: 0; margin-bottom: 4px; font-family: var(--font-serif); font-size: 1.0625rem; font-weight: 600; }
+.cart-form legend span { font-family: var(--font-sans); font-size: .8125rem; font-weight: 400; color: var(--muted); }
+.cart-form__hint { margin: 0 0 14px; font-size: .75rem; line-height: 1.5; color: var(--muted); }
+.cart-form__row { display: grid; grid-template-columns: 1fr 1fr; gap: 0 12px; }
+.field { min-width: 0; margin-bottom: 12px; }
+.field label { display: block; margin-bottom: 4px; font-size: .8125rem; font-weight: 500; }
+.field input,
+.field textarea {
+  display: block;
+  width: 100%;
+  min-width: 0;
+  min-height: 44px;
+  padding: 9px 12px;
+  border: 1.5px solid var(--field-border);
+  border-radius: var(--radius-sm);
+  background: #fff;
+  font-size: 1rem; /* >= 16px agar iOS tidak memperbesar halaman saat fokus */
+  line-height: 1.4;
+}
+.field textarea { resize: vertical; }
+.field input:invalid { border-color: var(--rose); background: var(--pink-50); } /* mis. tanggal sudah lewat */
+.field__hint { margin: 4px 0 0; font-size: .75rem; line-height: 1.5; color: var(--muted); }
+@media (max-width: 360px) { .cart-form__row { grid-template-columns: 1fr; } }
+
 .toast {
   position: fixed;
   left: 50%; bottom: 24px;
@@ -849,6 +877,10 @@ section[id], footer[id] { scroll-margin-top: calc(var(--header-h) + 12px); }
 
 .product-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(215px, 1fr)); gap: 20px; }
 @media (max-width: 560px) { .product-grid { grid-template-columns: repeat(2, 1fr); gap: 12px; } }
+
+/* Daftar produk tanpa JavaScript (<noscript> di produk.html) */
+.noscript-katalog h2 { margin: 18px 0 6px; font-size: 1.125rem; }
+.noscript-katalog ul { padding-left: 1.2em; list-style: disc; font-size: .9375rem; }
 
 .empty { padding: 56px 16px; text-align: center; color: var(--muted); }
 .empty h2 { margin-bottom: 8px; font-size: 1.25rem; }

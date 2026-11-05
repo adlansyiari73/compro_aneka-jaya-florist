@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://adlansyiari73.github.io/compro_aneka-jaya-florist/sitemap.xml

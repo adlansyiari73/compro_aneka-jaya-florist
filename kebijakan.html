@@ -113,7 +113,7 @@
         </li>
         <li class="nav__item"><a class="nav__link" href="index.html#tentang">Tentang Kami</a></li>
         <li class="nav__item"><a class="nav__link" href="index.html#testimoni">Testimoni</a></li>
-        <li class="nav__item"><a class="nav__link" href="artikel.html">Artikel</a></li>
+        <!-- MENU ARTIKEL disembunyikan selama halaman masih "Segera Hadir" (lihat README): <li class="nav__item"><a class="nav__link" href="artikel.html">Artikel</a></li> -->
         <li class="nav__item"><a class="nav__link" href="index.html#kontak">Kontak</a></li>
       </ul>
       <a class="btn btn--primary nav__cta" href="#" data-wa-link><svg class="icon" aria-hidden="true" focusable="false"><use href="#i-whatsapp"/></svg>Pesan Sekarang</a>
@@ -202,7 +202,7 @@
         <li><a href="produk.html">Produk</a></li>
         <li><a href="index.html#tentang">Tentang Kami</a></li>
         <li><a href="index.html#testimoni">Testimoni</a></li>
-        <li><a href="artikel.html">Artikel</a></li>
+        <!-- MENU ARTIKEL disembunyikan selama halaman masih "Segera Hadir" (lihat README): <li><a href="artikel.html">Artikel</a></li> -->
         <li><a href="index.html#kontak">Kontak</a></li>
       </ul>
     </nav>
@@ -260,6 +260,39 @@
       <a class="btn btn--outline btn--sm" href="produk.html" data-cart-close>Lihat Produk</a>
     </div>
     <ul class="cart-list" id="cart-items"></ul>
+    <form class="cart-form" id="cart-kirim" hidden>
+      <fieldset aria-describedby="kirim-info">
+        <legend>Data pengiriman <span>(opsional)</span></legend>
+        <p class="cart-form__hint" id="kirim-info">Isi yang sudah Anda ketahui saja. Isian ikut terkirim di pesan WhatsApp dan disimpan sebagai draf di browser ini sampai keranjang dikosongkan.</p>
+        <div class="cart-form__row">
+          <div class="field">
+            <label for="kirim-tanggal">Tanggal kirim</label>
+            <input id="kirim-tanggal" name="tanggal" type="date">
+          </div>
+          <div class="field">
+            <label for="kirim-jam">Jam/sesi kirim</label>
+            <input id="kirim-jam" name="jam" type="text" maxlength="40" placeholder="mis. pagi">
+          </div>
+        </div>
+        <div class="field">
+          <label for="kirim-penerima">Nama penerima</label>
+          <input id="kirim-penerima" name="penerima" type="text" maxlength="60" autocomplete="shipping name">
+        </div>
+        <div class="field">
+          <label for="kirim-alamat">Alamat pengiriman</label>
+          <textarea id="kirim-alamat" name="alamat" rows="2" maxlength="250" autocomplete="shipping street-address" placeholder="Jalan, nomor, RT/RW, kelurahan, kecamatan"></textarea>
+        </div>
+        <div class="field">
+          <label for="kirim-ucapan">Teks kartu/papan ucapan</label>
+          <textarea id="kirim-ucapan" name="ucapan" rows="3" maxlength="200" aria-describedby="kirim-ucapan-info"></textarea>
+          <p class="field__hint" id="kirim-ucapan-info">Untuk bunga papan dan duka cita, teks ini dipakai sebagai tulisan di papan. Maks. 200 karakter.</p>
+        </div>
+        <div class="field">
+          <label for="kirim-pengirim">Nama pengirim</label>
+          <input id="kirim-pengirim" name="pengirim" type="text" maxlength="60" autocomplete="name">
+        </div>
+      </fieldset>
+    </form>
   </div>
   <div class="drawer__foot" id="cart-footer" hidden>
     <div class="cart-total"><span>Total</span><strong id="cart-total">Rp 0</strong></div>
